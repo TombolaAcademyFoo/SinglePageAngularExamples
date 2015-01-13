@@ -1,0 +1,134 @@
+<html>
+    <head>
+        <title>Promises Example</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    </head>
+    <body ng-app='promises'>
+            <h1>Promises using $q</h1>
+            <div ng-controller='mainController' >
+                <input type='text' ng-model='subreddit' />
+                text
+                <button   ng-click='update()'>Update</button>
+                <div>The above defaults to 'britishproblems' - to get an error use an invalid subreddit and click update</div>
+                <div ng-show='showDetail'>
+                  <h2><a href='http://www.reddit.com{{subredditInformation.url}}'> <img ng-src='{{subredditInformation.headerImage}}' > {{subredditInformation.title}}</a> ({{subredditInformation.type}})</h2>
+                  <div><em>Number Of Subscribers</em> {{subredditInformation.numberOfSubscribers}}</div>
+                 <div>
+                      {{subredditInformation.description}}
+                  </div>
+                </div>
+            </div>
+            <script>                
+                angular.module('promises',[])
+                    .factory('apiService', function($http, $q){
+                        //Good to separate the service out as this stuff isn't really the controller's responsibility.
+                        return {
+                            getData: function (subreddit){
+                                console.log('******Get Data Start******');
+                                
+                               // $q.defer() returns an object that exposes an api - the object has 
+                               //       promise property - returned to so the calling code can hook in.
+                               //        three methods -
+                               //           1) resolve [done], 
+                               //           2) reject [failure] & 
+                                //          3) notify[update - can be called more than once] 
+                                var deferred = $q.defer(); 
+                                
+                               
+                                $http.get('http://www.reddit.com/r/' + subreddit + '/about.json')
+                                    //We don't need all the variables passed into the function - only need to declare data - shown here for completeness.
+                                    .success(function(data, status, headers, config){
+                                        //This is called after the http get function is finished asynchronously - check the console.
+                                        console.log('******Data returned: Success******');
+                                           
+                                        //Wanting to pass the data into the success method is unusual - normally want to manipulate into something more suitable
+                                        //This also de-coupled the calling code from the service implementation (in this case, reddit's).
+                                        data = data.data; //Annoyingly reddit puts most of its data in a property called data, doing this to simplify the next line or we'd get data.data.url....
+                                        
+                                        var responseData = {url: data.url, 
+                                            type: data.subreddit_type,  
+                                            title: data.title, 
+                                            numberOfSubscribers: data.subscribers, 
+                                            description: data.description,
+                                            headerImage: data.header_img,
+                                        };
+                                        
+                                        //Here we fulfill the promise, resolve = finished successfully.
+                                        deferred.resolve(responseData);
+                                        
+                                    })
+                                    .error(function(data, status, headers, config){
+                                        console.log('******Data returned: Failed******');
+                                        console.log('data: ' + data);
+                                        console.log('status: ' + status);
+                                        console.log('headers: ' + headers);
+                                        console.log('config: ' + config);
+                                        deferred.reject(status); //Fulfil the promise with a failure - just passing the error status
+                                    });
+                                console.log('******Get Data End******');
+                                
+                                // Return the promise here
+                                //      **NOTE** that the http hasn't returned yet, we are "promising" to call the resolve/reject callbacks methods when done/.
+                                return deferred.promise; 
+                            }
+                        };                            
+                    })
+                    
+                    .controller('mainController', function($scope, $sce, apiService){
+                        
+                        $scope.subreddit = 'britishproblems'; 
+                        $scope.showDetail = false;
+                        $scope.subredditInformation = {};
+                        
+                        $scope.update = function(){ 
+                            update();
+                        };
+                        
+                        var update = function (){
+                          console.log('######Controller Update Start######' +  $scope.subreddit);
+                          var promise = apiService.getData($scope.subreddit); //This returns the promise ready for use by the calling function.
+                        
+                       
+                          //Here we use the promise api - I think this is a neater form than the one in the comment below as it is more explicit.
+                          //then defines the success callback
+                         promise.then(function(subredditInformation){
+                            console.log('######Success callback called######');
+                            $scope.subredditInformation = subredditInformation;
+                            $scope.showDetail = true;
+                         })
+                         //catch defines the failure callback
+                         promise.catch(function(httpStatus){
+                             $scope.showDetail = false;
+                             $scope.subredditInformation = null;
+                             //Force the refresh before the alert otherwise the digest cycle will do it *after* the  alert (i.e. when the current  catch callback ends)
+                             $scope.$apply(); 
+                             alert('could not get subreddit http status: '+ httpStatus);
+                         });
+  
+
+                         /*
+                         //This commented code is here for a reason - it provides the callbacks in one statement, so you can see the syntax, 
+                         //promise.then can take up to three callbacks in the order: success-callback, failure-callback and report-callback (progress)
+                         promise.then(function(subredditInformation){
+                            console.log('######Success callback called######');
+                            $scope.subredditInformation = subredditInformation;
+                            $scope.showDetail = true;
+                         }, function(httpStatus){
+                             $scope.showDetail = false;
+                             $scope.subredditInformation = null;
+                             //Force the refresh before the alert otherwise the digest cycle will do it *after* the  alert (i.e. when the current  catch callback ends)
+                             $scope.$apply(); 
+                             alert('could not get subreddit http status: '+ httpStatus);
+                         });
+                         */
+                         
+                         
+                          console.log('######Controller Update End######');
+                        };
+                        update();
+                        
+                    });
+                
+            </script>
+    </body>
+</html>
