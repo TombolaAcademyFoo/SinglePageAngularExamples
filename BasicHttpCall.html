@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <title>My Angular app</title>
+</head>
+    <body ng-controller="myController">
+    <h1>{{model.subReddit}}</h1>
+    <input type="text" ng-model="model.subReddit" />
+    <div ng-click="model.getPosts()">Get posts</div>
+    <table>
+        <thead>
+            <th>Author</th>
+            <th>Title</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="post in model.redditData">
+                <td>
+                    {{post.data.author}}
+                </td>
+                <td >
+                    <reddit-Link></reddit-Link>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+            var app = angular.module('myModule',[]);
+            //Not the way to write this properly - for demo purposes
+            app.service('myAudioService', function (){
+                return {playClick: function (){console.log('CLICK');}};
+            });
+            app.factory('myModel', ['$http', 'myAudioService', function($http, myAudioService){
+                var model = function()
+                {
+                    this.redditData ='skjxn dbskn x';
+                    this.subReddit  = "games";
+                    this.getPosts = function (){
+                        var me = this;
+                        myAudioService.playClick();
+                        var url = "http://www.reddit.com/r/" + this.subReddit + ".json"
+                        $http.get(url)
+                            .success(function(data){
+                                console.log('worked');
+                                me.redditData = data.data.children;
+                            })
+                            .error(function(data, status) {
+                                console.log('fail data'   + data);
+                                console.log('fail status' + status);
+                            });
+                    }
+                    this.getPosts();
+                }4
+                return model;
+            }]);
+            app.controller('myController',['$scope','myModel',  function($scope, myModel){
+                $scope.model= new myModel();
+            }]);
+            app.directive('redditLink', function()
+            {
+                return {
+                    restrict: 'E',
+                    template: '<a href="{{post.data.url}}" target="_blank">{{post.data.title}}</a>'
+                };
+            });
+    </script>
+    </body>
+</html>
