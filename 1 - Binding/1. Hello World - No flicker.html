@@ -1,0 +1,28 @@
+<html ng-app="Tombola.MyModule" >
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+
+
+<body ng-controller="MyController" ng-init="textMessage='Hello World'" ng-cloak>
+
+<h1>{{textMessage}}, or if you prefer {{textMessage | uppercase}}</h1>
+
+This is onetime bound: {{::textMessage}}, with uppercase filter: {{::textMessage | uppercase}}
+
+<input type="text" ng-model="textMessage" />
+
+<div>Note the uppcase filter is built in to angular!</div>
+
+<script>
+    angular.module('Tombola.MyModule', []);
+
+    angular.module('Tombola.MyModule')
+            .controller('MyController', function ($scope) {
+
+            });
+</script>
+
+</body>
+
+</html>
