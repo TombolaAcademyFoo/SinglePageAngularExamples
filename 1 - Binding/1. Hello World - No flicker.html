@@ -4,7 +4,7 @@
 </head>
 
 
-<body ng-controller="MyController" ng-init="textMessage='Hello World'" ng-cloak>
+<body ng-init="textMessage='Hello World'" ng-cloak>
 
 <h1>{{textMessage}}, or if you prefer {{textMessage | uppercase}}</h1>
 
@@ -16,11 +16,6 @@ This is onetime bound: {{::textMessage}}, with uppercase filter: {{::textMessage
 
 <script>
     angular.module('Tombola.MyModule', []);
-
-    angular.module('Tombola.MyModule')
-            .controller('MyController', function ($scope) {
-
-            });
 </script>
 
 </body>

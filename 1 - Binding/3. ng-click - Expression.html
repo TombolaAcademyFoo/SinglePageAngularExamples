@@ -3,17 +3,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
 </head>
 
+<body ng-cloak>
 
-<body ng-init="checked=true">
 
-<h1 ng-show="checked">Show if true</h1>
-<h1 ng-hide="checked">Show if false</h1>
+<div ng-init="counter=0">
 
-<input type="checkbox" ng-model="checked" />
-{{checked}}
+    <h1>Count: {{counter}}</h1>
+
+    <div ng-click="counter = counter + 1">Click here</div>
+
+</div>
+
 
 <script>
     angular.module('Tombola.MyModule', []);
 </script>
+
 </body>
+
 </html>
