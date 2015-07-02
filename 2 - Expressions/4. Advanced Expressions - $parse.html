@@ -1,0 +1,46 @@
+<html ng-app="Tombola.MyModule" >
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <title>$parse expression parser</title>
+</head>
+
+<body>
+<h1>$parse</h1>
+<div ng-controller="MyController">
+    <div>
+        <input type="text" ng-model="expression" placeholder="Enter an expression">
+        <input type="button" value="submit" ng-click="evaluate()" ng-disabled="expression ? false : true">
+    </div>
+    <div ng="-cloak">
+        Result = {{result}}
+    </div>
+</div>
+<div ng-non-bindable>
+    <h2>Notes</h2>
+    <ul>
+        <li>You do not need the {{...}} brackets - the scope is controller by the controller code</li>
+        <li>Try simple maths such as <i>2 * 2</i></li>
+        <li>You can set variables <i>foo = 42</i> and use them in further expressions</li>
+        <a>For bonus points, examine what happens to $scope in an browser angular extension such as <a href="http://ng-inspector.org/" target="_blank">ng-Inspector</a></li>
+    </ul>
+</div>
+
+
+
+<script>
+    angular.module('Tombola.MyModule', []);
+    angular.module('Tombola.MyModule')
+            .controller('MyController', ['$scope', '$parse', function($scope, $parse){
+                $scope.result = '';
+
+                $scope.evaluate = function(){
+                    var parsedFunction = $parse($scope.expression);
+                    $scope.result = parsedFunction($scope);
+                }
+
+            }]);
+</script>
+
+</body>
+
+</html>

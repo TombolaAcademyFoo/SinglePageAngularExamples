@@ -16,11 +16,15 @@
         $scope.counter = 0;
 
         setInterval(function(){
+
             $scope.counter++;
-            $scope.$digest();
+
             $scope.$apply(function(){
+
                 alert('OK to actually update');
+
             });
+
         }, 1500);
     }]);
 </script>

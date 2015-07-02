@@ -11,15 +11,12 @@
 <div>Number of changes: {{changes}}</div>
 <div>Last change from <i>{{lastChangeFrom}}</i> to <i>{{lastChangeTo}}</i></div>
 <input type="button" value="de-register" ng-click="deRegister()" >
-
-
-
 <script>
     angular.module('Tombola.MyModule', []);
 
     angular.module('Tombola.MyModule')
             .controller('MyController', function ($scope) {
-                $scope.foo = "foo";
+                $scope.foo = "my init value";
                 $scope.changes = 0;
                 $scope.lastChangeFrom = "";
                 $scope.lastChangeTo = "";
