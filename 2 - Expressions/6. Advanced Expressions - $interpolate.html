@@ -1,0 +1,71 @@
+<html ng-app="Tombola.MyModule" >
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <title>$interpolate template interpolator</title>
+</head>
+
+<body>
+<h1>$interpolate</h1>
+<div ng-controller="MyController">
+    <div>
+        <h2>Template to interpolate</h2>
+        Enter the template text you want to interpolate. If you bind values in a scope - these will need to appear in the scope values below.
+        <div><textarea ng-model="template" placeholder="Enter a template to be interpolated"></textarea></div>
+        <input type="button" value="submit" ng-click="interpolateTemplate()" ng-disabled="template ? false : true">
+    </div>
+
+    <div>
+        <h2>Scope to interpolate into template</h2>
+        Create expressions to add values to the scope e.g. <em>foo='hello'</em> results will be added to the scope used in interpolation, displayed below as JSON
+        <div>
+            <input type="text" ng-model="expression" placeholder="Enter an expression">
+            <input type="button" value="evaluate expression" ng-click="evaluateExpression()" ng-disabled="expression ? false : true">
+        </div>
+        <div>
+            {{values | json}}
+        </div>
+        <em>Note - extra values will be ignored.</em>
+    </div>
+
+    <div ng="-cloak">
+        <h2>Result:</h2>
+        <pre ng-bind-html="result"></pre>
+    </div>
+</div>
+
+
+<div ng-non-bindable>
+    <h2>Notes</h2>
+    <ul>
+        <li>You do not need the {{...}} brackets - the scope is controller by the controller code</li>
+        <li>Try simple maths such as <i>2 * 2</i></li>
+        <li>You can set variables <i>foo = 42</i> and use them in further expressions</li>
+        <a>For bonus points, examine what happens to $scope in an browser angular extension such as <a href="http://ng-inspector.org/" target="_blank">ng-Inspector</a></li>
+    </ul>
+</div>
+
+
+
+<script>
+    angular.module('Tombola.MyModule', []);
+    angular.module('Tombola.MyModule')
+            .controller('MyController', ['$scope', '$parse', '$interpolate', function($scope, $parse, $interpolate){
+                $scope.result = '';
+                $scope.values = { };
+
+                $scope.evaluateExpression = function(){
+                    var parseFunction = $parse($scope.expression);
+                    parseFunction($scope.values);
+                }
+
+                $scope.interpolateTemplate = function(){
+                    var templateFunction = $interpolate($scope.template);
+                    $scope.result = templateFunction($scope.values);
+                }
+
+            }]);
+</script>
+
+</body>
+
+</html>
