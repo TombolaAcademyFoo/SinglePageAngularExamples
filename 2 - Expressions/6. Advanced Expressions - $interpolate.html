@@ -44,7 +44,7 @@
         angular.module('Tombola.MyModule', []);
         angular.module('Tombola.MyModule')
                 .controller('MyController',
-                ['$scope', '$parse', '$interpolate', function ($scope, $parse, $interpolate) {
+                ['$scope', '$parse', '$sce', '$interpolate', function ($scope, $parse, $sce, $interpolate) {
                     $scope.result = '';
                     $scope.values = {};
                     $scope.evaluateExpression = function () {
@@ -52,8 +52,10 @@
                         parseFunction($scope.values);
                     };
                     $scope.interpolateTemplate = function () {
-                        var templateFunction = $interpolate($scope.template);
-                        $scope.result = templateFunction($scope.values);
+                        var templateFunction = $interpolate($scope.template),
+                            interpolatedHtml = templateFunction($scope.values);
+                        //$sce is "secure context" - allowing us to bind programatic HTML in this case.
+                        $scope.result = $sce.trustAsHtml(interpolatedHtml);
                     };
                 }]);
     </script>
