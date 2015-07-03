@@ -8,30 +8,30 @@
 <body ng-app="ScopeWatch">
     <h1>$scope.$apply</h1>
     <div ng-controller="Controller">
-        <input type="button" value="re-run" ng-click="update()" />
+        <input type="button" value="re-run" ng-click="update()"/>
         <div>{{foo}}</div>
         <div>Wait 2 seconds before doing anything.....</div>
-        <div>Note that clicking the button uses ng-click, so will fire a digest. This will updated even it you cancelled the popup</div>
+        <div>Note that clicking the button uses ng-click, so will fire a digest. This will updated even it you cancelled the popup
+        </div>
     </div>
     <script>
         angular.module('ScopeWatch', [])
-          .controller('Controller', ['$scope', function($scope){
-              $scope.foo='';
-              $scope.update = function(){
-                setTimer();
-              };
-              
-              var setTimer = function(){setTimeout(function(){
-                  //this callback happens outside the digest cycle.
-                  $scope.foo = Date();
-                  if(confirm(' ready - OK to call apply, cancel to not')){
-                    $scope.$apply();
-                  }
-                }, 2000);
-              };
-              
-              setTimer(); //call automatically the first time...
-          }]);
+                .controller('Controller', ['$scope', function ($scope) {
+                    $scope.foo = '';
+                    $scope.update = function () {
+                        setTimer();
+                    };
+                    var setTimer = function () {
+                        setTimeout(function () {
+                            //this callback happens outside the digest cycle.
+                            $scope.foo = Date();
+                            if (confirm(' ready - OK to call apply, cancel to not')) {
+                                $scope.$apply();
+                            }
+                        }, 2000);
+                    };
+                    setTimer(); //call automatically the first time...
+                }]);
     </script>
 </body>
 </html>

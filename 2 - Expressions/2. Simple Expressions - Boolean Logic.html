@@ -1,102 +1,95 @@
-<html ng-app="Tombola.MyModule" >
-
-
+<html ng-app="Tombola.MyModule">
 <body>
-
-<h1>Logical Operators</h1>
-
-<h2>! Truth Table</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Value</th>
-        <th>Result</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>false</td>
-        <td>{{!false}}</td>
-    </tr>
-    <tr>
-        <td>true</td>
-        <td>{{!true}}</td>
-    </tr>
-    </tbody>
-</table>
-
-<h2>&& Truth Table</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Value 1</th>
-            <th>Value 2</th>
-            <th>Result</th>
-        </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>false</td>
-        <td>false</td>
-        <td>{{false && false}}</td>
-    </tr>
-    <tr>
-        <td>false</td>
-        <td>true</td>
-        <td>{{false && true}}</td>
-    </tr>
-    <tr>
-        <td>true</td>
-        <td>false</td>
-        <td>{{true && false}}</td>
-    </tr>
-    <tr>
-        <td>true</td>
-        <td>true</td>
-        <td>{{true && true}}</td>
-    </tr>
-    </tbody>
-</table>
-<h2>|| Truth Table</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Value 1</th>
-        <th>Value 2</th>
-        <th>Result</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>false</td>
-        <td>false</td>
-        <td>{{false || false}}</td>
-    </tr>
-    <tr>
-        <td>false</td>
-        <td>true</td>
-        <td>{{false || true}}</td>
-    </tr>
-    <tr>
-        <td>true</td>
-        <td>false</td>
-        <td>{{true || false}}</td>
-    </tr>
-    <tr>
-        <td>true</td>
-        <td>true</td>
-        <td>{{true || true}}</td>
-    </tr>
-    </tbody>
-</table>
-<h1>Ternary operator</h1>
-<div>true ? 'yes' : no = <em>'{{true ? 'yes' : 'no'}}'</em></div>
-<div>false ? 'yes' : no = <em>'{{false ? 'yes' : 'no'}}'</em></div>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
-<script>
-    angular.module('Tombola.MyModule', []);
-</script>
-
+    <h1>Logical Operators</h1>
+    <h2>! Truth Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Value</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>false</td>
+                <td>{{!false}}</td>
+            </tr>
+            <tr>
+                <td>true</td>
+                <td>{{!true}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>&& Truth Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Value 1</th>
+                <th>Value 2</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>false</td>
+                <td>false</td>
+                <td>{{false && false}}</td>
+            </tr>
+            <tr>
+                <td>false</td>
+                <td>true</td>
+                <td>{{false && true}}</td>
+            </tr>
+            <tr>
+                <td>true</td>
+                <td>false</td>
+                <td>{{true && false}}</td>
+            </tr>
+            <tr>
+                <td>true</td>
+                <td>true</td>
+                <td>{{true && true}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>|| Truth Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Value 1</th>
+                <th>Value 2</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>false</td>
+                <td>false</td>
+                <td>{{false || false}}</td>
+            </tr>
+            <tr>
+                <td>false</td>
+                <td>true</td>
+                <td>{{false || true}}</td>
+            </tr>
+            <tr>
+                <td>true</td>
+                <td>false</td>
+                <td>{{true || false}}</td>
+            </tr>
+            <tr>
+                <td>true</td>
+                <td>true</td>
+                <td>{{true || true}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h1>Ternary operator</h1>
+    <div>true ? 'yes' : no = <em>'{{true ? 'yes' : 'no'}}'</em></div>
+    <div>false ? 'yes' : no = <em>'{{false ? 'yes' : 'no'}}'</em></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script>
+        angular.module('Tombola.MyModule', []);
+    </script>
 </body>
-
 </html>

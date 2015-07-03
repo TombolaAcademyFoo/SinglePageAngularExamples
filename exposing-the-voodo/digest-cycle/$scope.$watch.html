@@ -8,30 +8,28 @@
 <body ng-app="ScopeWatch">
     <h1>$scope.$watch</h1>
     <div ng-controller="Controller">
-        <input type="button" value="change" ng-click="update()" />
+        <input type="button" value="change" ng-click="update()"/>
         <div>{{foo}}</div>
         <div>{{hasChanged}}</div>
     </div>
     <script>
         angular.module('ScopeWatch', [])
-          .controller('Controller', ['$scope', function($scope){
-            var counter = 0;
-            $scope.foo='bar';
-            $scope.update= function(){
-              $scope.foo = $scope.foo + "." ;
-            }
-            
-            
-            //could do this in the update function - but wouldn't demo a watch
-            //also do not use a watch in a controller - this is for demo only.
-            $scope.$watch('foo', function(newValue, oldValue, scope){
-              if(newValue === oldValue){
-                return; //Needed as run on init
-              }
-              scope.hasChanged = 'Changed ' + ++counter + ' times';
-            })
-          
-          }]);
+                .controller('Controller', ['$scope', function ($scope) {
+                    var counter = 0;
+                    $scope.foo = 'bar';
+                    $scope.update = function () {
+                        $scope.foo = $scope.foo + ".";
+                    };
+
+                    //could do this in the update function - but wouldn't demo a watch
+                    //also do not use a watch in a controller - this is for demo only.
+                    $scope.$watch('foo', function (newValue, oldValue, scope) {
+                        if (newValue === oldValue) {
+                            return; //Needed as run on init
+                        }
+                        scope.hasChanged = 'Changed ' + ++counter + ' times';
+                    });
+                }]);
     </script>
 </body>
 </html>
