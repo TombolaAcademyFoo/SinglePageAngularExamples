@@ -1,0 +1,23 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1>{{textMessage}}</h1>
+        <input type="text" ng-model="textMessage"/>
+    </div>
+    <script>
+        angular.module('Tombola.Audio', []);
+        angular.module('Tombola.Sprites', []);
+        angular.module('Tombola.MyModule', ['Tombola.Audio', 'Tombola.Sprites']);
+
+
+        //in a real-world app - this could now be organised in a different file.
+        angular.module('Tombola.MyModule')
+                .controller('MyController', [ '$scope', function ($scope) {
+                $scope.textMessage = 'hello world';
+            }]);
+    </script>
+</body>
+</html>
