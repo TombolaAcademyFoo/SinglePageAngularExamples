@@ -1,0 +1,44 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1><tombola-clock></tombola-clock></h1>
+        <h1>{{clock.time| myDateFormatter:false | lowercase}}</h1>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .service('Clock', ['$interval', function ($interval) {
+                    var me = this;
+                    this.time = new Date();
+
+                    $interval(function(){
+                        me.time = new Date();
+                    }, 1000);
+                }]);
+
+        angular.module('Tombola.MyModule')
+                .filter('myDateFormatter',function(){
+                   return function(date, is12HourClock){
+                       return date.toLocaleTimeString('en-GB', {hour12: is12HourClock});
+                   }
+                });
+
+        angular.module('Tombola.MyModule')
+                .directive('tombolaClock',function(){
+                    return {
+                        restrict: 'E',
+                        template: '<i>{{clock.time| myDateFormatter:true | lowercase}}</i>'
+                    }
+                });
+
+        angular.module('Tombola.MyModule')
+            .controller('MyController', [ '$scope', 'Clock', function ($scope, clock) {
+                $scope.clock = clock;
+            }]);
+    </script>
+</body>
+</html>
