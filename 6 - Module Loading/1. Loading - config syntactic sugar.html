@@ -1,0 +1,35 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-controller="MyController" ng-cloak>
+    <h1>Config Example</h1>
+    <div>{{myKey}}</div>
+    <script>
+        angular.module('Tombola.VersionA', [])
+                .config(function($provide, $compileProvider){
+                    $provide.factory('myFactory', function(){
+                        return  {foo: 42}
+                    });
+                    //Not that directives need compileProvider
+                    $compileProvider.directive('myDirective', function(){
+                        return {
+                            template:'<div>w00t!</div>'
+                        }
+                    });
+                });
+
+
+        angular.module('Tombola.VersionB', [])
+                .factory('myFactory', function(){
+                    return  {foo: 42}
+                })
+                .directive('myDirective', function(){
+                    return {
+                        template:'<div>w00t!</div>'
+                    }
+                });
+
+    </script>
+</body>
+</html>

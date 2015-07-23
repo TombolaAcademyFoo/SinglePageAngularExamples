@@ -1,0 +1,40 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.min.js"></script>
+</head>
+<body>
+    <h1>Run Block Example</h1>
+    <div>When you log in you have a 50% chance of being authenticated.</div>
+    <div ng-view></div>
+    <script>
+        angular.module('Tombola.MyModule', ['ngRoute'])
+                .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
+                    $locationProvider.html5Mode(false);
+                    $routeProvider
+                            .when('/', {
+                                templateUrl:'views/login.html'
+                            })
+                            .when( "/protectedpage", {
+                                templateUrl:'views/protected.html'
+                            });
+                }])
+                .service('AuthenticationService', function(){
+                    return {
+                        isAuthenticated: function(){
+                            // Half the time you will be logged in, half the time you won't
+                            // Not very secure or realistic :)
+                            return Math.random() > 0.5;
+                        }
+                    }
+                })
+                .run(['$rootScope', '$location', 'AuthenticationService',function($rootScope, $location, authenticationService){
+                    $rootScope.$on('$routeChangeStart', function (event, next) {
+                        if(!authenticationService.isAuthenticated()){
+                            $location.path('/');
+                        }
+                    });
+                }]);
+    </script>
+</body>
+</html>
