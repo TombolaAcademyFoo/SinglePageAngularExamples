@@ -4,19 +4,33 @@
 </head>
 <body ng-cloak>
     <div ng-controller="MyController">
-        <h1>{{textMessage}}</h1>
-        <div>This is the same as the example in section 2, "Basic Angular"</div>
+        <h1>Egg Timer</h1>
+        <div ng-hide="isCooking || isCooked">Click start when boil...</div>
+        <div ng-show="isCooking">Cooking</div>
+        <div ng-show="isCooked">Done, nice eggy!</div>
+        <button ng-click="start()" >start</button>
     </div>
     <script>
         angular.module('Tombola.MyModule', []);
 
         angular.module('Tombola.MyModule')
-                .controller('MyController', [ '$scope', '$interval', function ($scope, $interval) {
+                .controller('MyController', [ '$scope', '$timeout', function ($scope, $timeout) {
+                    $scope.isCooking = false;
+                    $scope.isCooked = false;
+
+                    $scope.start = function(){
+                      if(!$scope.isCooking){
+                          $scope.isCooking = true;
+                          $scope.isCooked = false;
+                          $timeout(update, 3 * 60 * 1000)
+                      }
+                    };
+
                     var update = function(){
-                        $scope.textMessage = new Date().toLocaleTimeString();
+                        $scope.isCooked = true;
+                        $scope.isCooking = false;
                     }
-                    $interval(update, 1000); //1000 milliseconds...
-                    update();
+
                 }]);
     </script>
 </body>
