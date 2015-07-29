@@ -1,0 +1,23 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1>{{textMessage}}</h1>
+        <div>This is the same as the example in section 2, "Basic Angular"</div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', [ '$scope', '$interval', function ($scope, $interval) {
+                    var update = function(){
+                        $scope.textMessage = new Date().toLocaleTimeString();
+                    }
+                    $interval(update, 1000); //1000 milliseconds...
+                    update();
+                }]);
+    </script>
+</body>
+</html>

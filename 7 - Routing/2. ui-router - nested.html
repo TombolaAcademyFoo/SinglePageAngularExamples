@@ -1,0 +1,43 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+</head>
+<body>
+    <h1>Routing</h1>
+    <div>
+        <a ui-sref="stateA">Show State A - Nested</a>
+        <a ui-sref="stateB">Show State B - Not nested</a>
+    </div>
+    <div ui-view></div>
+    <script>
+        angular.module('Tombola.MyModule', ['ui.router'])
+                .config(['$stateProvider', '$urlRouterProvider',  function($stateProvider, $urlRouterProvider){
+                    $urlRouterProvider.otherwise("/Foo/Baz");
+                    $stateProvider
+                            .state('stateA', {
+                                url: "/Foo",
+                                templateUrl: "views/nestingView1.html"
+                            })
+                            .state('stateA.nested1', {
+                                url: "/Baz",
+                                templateUrl: "views/view1.html"
+                            })
+                            .state('stateA.nested2', {
+                                url: "/Qux",
+                                templateUrl: "views/view2.html",
+                                controller: 'MyController'
+                            })
+                            .state('stateB', {
+                                url: "/Bar",
+                                templateUrl: "views/view2.html",
+                                controller: 'MyController'
+                            })
+
+                }])
+                .controller('MyController', ['$scope' , function($scope){
+                    $scope.myValue = 'Woot'
+                }]);
+    </script>
+</body>
+</html>
