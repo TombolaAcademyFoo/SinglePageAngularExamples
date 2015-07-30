@@ -1,0 +1,36 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1>$q - all</h1>
+        <div>{{result}}</div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .service('FakeAsyncPromise', ['$q', function($q){
+                    this.start = function(reference){
+                        var deferred = $q.defer(),
+                            timeout = Math.random() * 1000;
+                            setTimeout(function(){
+                                deferred.resolve('Process ' + reference + ' Random timeout = ' +  timeout);
+                            }, timeout);
+                            return deferred.promise;
+                        };
+                    }]);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', [ '$scope', '$q', 'FakeAsyncPromise', function ($scope, $q, fakeAsyncPromise) {
+                    $scope.result;
+
+                    $q.all([fakeAsyncPromise.start('A'),fakeAsyncPromise.start('B'), fakeAsyncPromise.start('C')])
+                            .then(function(value){
+                                $scope.result = value;
+                            });
+                }]);
+    </script>
+</body>
+</html>
