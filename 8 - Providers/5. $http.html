@@ -1,0 +1,54 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1>$q - all</h1>
+        <h2>Status: {{status}}</h2>
+        <h2>Headers:</h2>
+        <div>{{headers}}</div>
+        <h2>Config:</h2>
+        <div>{{config}}</div>
+        <h2>Data:</h2>
+        <div>{{data}}</div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .service('FakeAsyncPromise', ['$q', function($q){
+                    this.start = function(reference){
+                        var deferred = $q.defer(),
+                            timeout = Math.random() * 1000;
+                            setTimeout(function(){
+                                deferred.resolve('Process ' + reference + ' Random timeout = ' +  timeout);
+                            }, timeout);
+                            return deferred.promise;
+                        };
+                    }]);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', [ '$scope', '$http',  function ($scope, $http) {
+                    $scope.status;
+                    $scope.headers;
+                    $scope.config;
+                    $scope.data;
+
+                    $http.get('http://www.reddit.com/r/britishproblems.json')
+                            .success(function(data, status, headers, config){
+                                $scope.status = status;
+                                $scope.headers = headers;
+                                $scope.config = config;
+                                $scope.data = data;
+                            })
+                            .error(function(data, status, headers, config) {
+                                $scope.status = 'Errored: ' + status;
+                                $scope.headers = headers;
+                                $scope.config = config;
+                                $scope.data = data;
+                            });
+                }]);
+    </script>
+</body>
+</html>
