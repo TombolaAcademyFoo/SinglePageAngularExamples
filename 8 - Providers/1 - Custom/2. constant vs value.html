@@ -1,0 +1,30 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <title>Constant vs Value</title>
+</head>
+<body ng-cloak>
+    <div>
+        <h1>Constant</h1>
+        <div>Useful output is in console.</div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule').constant('myConstant', 'constant');
+        angular.module('Tombola.MyModule').value('myValue', 'value');
+
+        //Replace myConstant with myValue to see the effect
+        angular.module('Tombola.MyModule')
+                .config(['myConstant', function(myConstant){
+                    console.log('Config : The value is not available here - constant is: ' + myConstant );
+                }]);
+
+        angular.module('Tombola.MyModule')
+                .run(['myConstant','myValue', function(myConstant, myValue){
+                    console.log('Run: constant is allowed: ' + myConstant );
+                    console.log('Run: value is also allowed: ' + myValue );
+                }]);
+    </script>
+</body>
+</html>

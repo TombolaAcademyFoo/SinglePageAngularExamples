@@ -1,0 +1,22 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <title>$document example</title>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1>Constant</h1>
+        <div>{{value}}</div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule').value('myValue', 'value');
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', [ '$scope', 'myValue',  function ($scope, myValue) {
+                    $scope.value = myValue;
+                }]);
+    </script>
+</body>
+</html>

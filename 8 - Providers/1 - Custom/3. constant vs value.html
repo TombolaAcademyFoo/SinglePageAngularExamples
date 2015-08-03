@@ -1,0 +1,37 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <title>Constant vs Value</title>
+</head>
+<body ng-cloak>
+    <div>
+        <h1>Constant</h1>
+        <div>Useful output is in console.</div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule').constant('myConstant', 'constant');
+        angular.module('Tombola.MyModule').value('myValue', 'value');
+
+        //Replace myValue with myConstant to see the effect
+        angular.module('Tombola.MyModule')
+                .config(['$provide', function($provide){
+                    //If you want to see a better example of how to use a *real* decorator
+                    // for augmenting existing providers
+                    //see: http://odetocode.com/blogs/scott/archive/2013/06/06/decorating-angularjs-services.aspx
+                    $provide
+                            .decorator('myValue', function(){
+                                // this would not work with the constant....
+                                return 'decorated value';
+                            });
+                }]);
+
+        angular.module('Tombola.MyModule')
+                .run(['myConstant','myValue', function(myConstant, myValue){
+                    console.log('Run: constant : ' + myConstant );
+                    console.log('Run: value is : ' + myValue );
+                }]);
+    </script>
+</body>
+</html>
