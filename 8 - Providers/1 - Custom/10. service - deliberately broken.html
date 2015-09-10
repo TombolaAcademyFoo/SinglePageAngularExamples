@@ -1,0 +1,23 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1>Service</h1>
+        <div>See the console for the relevant error message</div>
+        <div><em>Note</em> if you are not expecting it - the error message is somewhat misleading, you'd expect some kind of injector error...</div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        //Note the service is instantiated with a new - the function must be a constructor function
+        angular.module('Tombola.MyModule')
+                .service ('JackInABox', ['$timeout', 'Not a ctor function']);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', [ '$scope', 'JackInABox',  function ($scope, jackInABox) {
+                }]);
+    </script>
+</body>
+</html>

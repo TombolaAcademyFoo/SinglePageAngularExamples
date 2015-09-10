@@ -4,7 +4,7 @@
 </head>
 <body ng-cloak>
     <div ng-controller="MyController">
-        <h1>Factory</h1>
+        <h1>Service</h1>
         <img ng-show="jackInABox.open" src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Jack-in-the-box.jpg" alt="Boinnnn-n-n-n-n-ng-g-g-gg-g-g-g-g" title="Boinnnn-n-n-n-n-ng-g-g-gg-g-g-g-g"></img>
         <div ng-show="jackInABox.canWind">
             <button ng-click="wind()" >Wind the Jack-in-a-Box</button>
@@ -13,22 +13,21 @@
     <script>
         angular.module('Tombola.MyModule', []);
 
+        //Note the service is instantiated with a new - the function must be a constructor function
         angular.module('Tombola.MyModule')
-                .factory('JackInABox', ['$timeout', function($timeout){
-                    var me = this;
-                    this.canWind = true;
-                    this.open = false;
+                .service ('JackInABox', ['$timeout', function($timeout){
+                        var me = this;
+                        this.canWind = true;
+                        this.open = false;
 
-                    this.wind = function(){
-                        me.canWind  = false;
-                        me.open = false;
-                        $timeout(function(){
-                            me.canWind = true;
-                            me.open = true;
-                        }, Math.random() * 5000);
-                    };
-
-                    return this;
+                        this.wind = function(){
+                            me.canWind  = false;
+                            me.open = false;
+                            $timeout(function(){
+                                me.canWind = true;
+                                me.open = true;
+                            }, Math.random() * 5000);
+                        };
                 }]);
 
         angular.module('Tombola.MyModule')

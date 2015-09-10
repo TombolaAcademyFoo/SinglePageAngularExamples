@@ -15,20 +15,22 @@
 
         angular.module('Tombola.MyModule')
                 .factory('JackInABox', ['$timeout', function($timeout){
-                    var me = this;
-                    this.canWind = true;
-                    this.open = false;
+                    var jackInABox = function(){
+                        var me = this;
+                        this.canWind = true;
+                        this.open = false;
 
-                    this.wind = function(){
-                        me.canWind  = false;
-                        me.open = false;
-                        $timeout(function(){
-                            me.canWind = true;
-                            me.open = true;
-                        }, Math.random() * 5000);
+                        this.wind = function(){
+                            me.canWind  = false;
+                            me.open = false;
+                            $timeout(function(){
+                                me.canWind = true;
+                                me.open = true;
+                            }, Math.random() * 5000);
+                        };
                     };
 
-                    return this;
+                    return new jackInABox();
                 }]);
 
         angular.module('Tombola.MyModule')

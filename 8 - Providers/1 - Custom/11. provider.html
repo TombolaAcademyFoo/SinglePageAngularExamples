@@ -1,0 +1,58 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1>Factory</h1>
+        <div> Our Jack-in-a-box is so fantastic, we want to deploy it as a configuarble API...</div>
+        <img ng-show="jackInABox.open" src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Jack-in-the-box.jpg" alt="Boinnnn-n-n-n-n-ng-g-g-gg-g-g-g-g" title="Boinnnn-n-n-n-n-ng-g-g-gg-g-g-g-g"></img>
+        <div ng-show="jackInABox.canWind">
+            <button ng-click="wind()" >Wind the Jack-in-a-Box</button>
+        </div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .provider('JackInABox', [function(){
+                    var maxWindTimeInSeconds = 5;
+
+                    this.setWindMaxTime = function(valueInSeconds){
+                        maxWindTimeInSeconds = valueInSeconds;
+                    }
+
+                    this.$get = ['$timeout', function($timeout){
+                        var me = this;
+                        this.canWind = true;
+                        this.open = false;
+
+                        this.wind = function(){
+                            me.canWind  = false;
+                            me.open = false;
+                            $timeout(function(){
+                                me.canWind = true;
+                                me.open = true;
+                            }, Math.random() * maxWindTimeInSeconds * 1000);
+                        };
+
+                        return this;
+                    }];
+
+                }]);
+        angular.module('Tombola.MyModule')
+                .config(['JackInABoxProvider', function(jackInABoxProvider){
+                    jackInABoxProvider.setWindMaxTime(3);
+                }]);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', [ '$scope', 'JackInABox',  function ($scope, jackInABox) {
+                    $scope.jackInABox = jackInABox;
+
+                    $scope.wind = function() {
+                        $scope.jackInABox.wind();
+                    }
+                }]);
+    </script>
+</body>
+</html>
