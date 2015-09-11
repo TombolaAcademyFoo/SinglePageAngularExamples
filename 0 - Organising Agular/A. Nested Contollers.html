@@ -1,0 +1,82 @@
+<html ng-app="Tombola.MyModule" >
+
+
+<body >
+
+    <div class="UnresolvedNames">
+        <div ng-controller="ControllerA">
+            <h1>{{textMessage}}</h1>
+            <div ng-controller="ControllerB">
+                <h2>{{textMessage}}</h2>
+                <div>Parent message= {{$parent.textMessage}}</div>
+                <div ng-controller="ControllerC">
+                    <h3>{{textMessage}}</h3>
+                    <div>Parent message= {{$parent.textMessage}}</div>
+                    <div>Grandparent message= {{$parent.$parent.textMessage}}</div> <!--Fugly -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="ResolvedNames">
+        <div ng-controller="Controller1 as controller1">
+            <h1>{{controller1.textMessage}}</h1>
+            <div ng-controller="Controller2 as controller2">
+                <h2>{{controller2.textMessage}}</h2>
+                <div>Parent message= {{controller1.textMessage}}</div>
+                <div ng-controller="Controller3 as controller3">
+                    <h3>{{controller3.textMessage}}</h3>
+                    <div>Parent message= {{controller2.textMessage}}</div>
+                    <div>Grandparent message= {{controller1.textMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+
+
+<script>
+    angular.module('Tombola.MyModule', [])
+
+            .controller('ControllerA', function ($scope) {
+                $scope.textMessage = "ControllerA";
+
+            })
+            .controller('ControllerB', function ($scope) {
+
+                $scope.textMessage = "ControllerB";
+
+            })
+            .controller('ControllerC', function ($scope) {
+
+                $scope.textMessage = "ControllerC";
+
+            })
+
+
+            .controller('Controller1', function () {
+                //Note the controllerAs syntax returns the controller, not the scope.
+                //Therefore we need to add to the controller, not the scope. This has
+                //reprecusssions.
+                //Can mititgate like this possibly?
+                //this.$scope = $scope;
+                this.textMessage = "Controller1";
+
+            })
+            .controller('Controller2', function () {
+
+                this.textMessage = "Controller2";
+
+            })
+            .controller('Controller3', function () {
+
+                this.textMessage = "Controller3";
+
+            });
+</script>
+
+</body>
+
+</html>
