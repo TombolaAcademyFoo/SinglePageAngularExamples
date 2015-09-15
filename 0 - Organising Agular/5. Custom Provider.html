@@ -11,21 +11,13 @@
 
     <script>
         angular.module('Tombola.MyModule', [])
-
             .service ('Clock', ['$interval', function($interval){
-
                 var me= this;
-
                 this.time = new Date().toLocaleTimeString();
-
                 $interval(function(){
-
                     me.time = new Date().toLocaleTimeString();
-
                 }, 1000);
-
             }])
-
             .controller('MyController', ['$scope', 'Clock',  function ($scope, clock) {
 
                 $scope.clock = clock;

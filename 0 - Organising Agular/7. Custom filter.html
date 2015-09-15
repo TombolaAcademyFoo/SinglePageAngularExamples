@@ -11,32 +11,22 @@
 
     <script>
         angular.module('Tombola.MyModule', [])
-
-            .filter('myDateFormatter', function(  ){
-
+            .filter('myDateFormatter', function(){
                     return function (date, is12hourClock){
-
+                        alert(foo);
                         return date.toLocaleTimeString('en-GB', {hour12: is12hourClock});
-
                     };
             })
-
             .service ('Clock', ['$interval', function($interval){
 
                 var me= this;
-
                 this.time = new Date();
-
                 $interval(function(){
-
                     me.time = new Date();
-
                 }, 1000);
 
             }])
-
             .controller('MyController', ['$scope', 'Clock',  function ($scope, clock) {
-
                 $scope.clock = clock;
 
             }]);

@@ -11,17 +11,11 @@
 
 <script>
     angular.module('Tombola.MyModule', [])
-
             .controller('MyController', function ($scope, $interval) {
-
-
                 var update = function(){
-
                         $scope.textMessage = new Date().toLocaleTimeString();
                     };
-
                 $interval(update, 1000);
-
                 update();
             });
 </script>

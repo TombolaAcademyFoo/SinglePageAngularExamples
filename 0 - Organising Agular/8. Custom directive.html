@@ -8,14 +8,20 @@
 
 
     <h1>The time is: <tombola-clock></tombola-clock></h1>
-
+        <tombola-clock></tombola-clock>
+        <tombola-clock></tombola-clock>
+        <tombola-clock></tombola-clock>
+        <tombola-clock></tombola-clock>
+        <tombola-clock></tombola-clock>
+        <tombola-clock></tombola-clock>
+        <tombola-clock></tombola-clock>
     <script>
         angular.module('Tombola.MyModule', [])
 
             .directive('tombolaClock', [function(){
                     return {
                         restrict: 'E',
-                        template: '<i>{{clock.time | myDateFormatter:true | lowercase}}</i>'
+                        template: '<i>{{clock.time | myDateFormatter:true | lowercase}},</i>'
                     }
             }])
 

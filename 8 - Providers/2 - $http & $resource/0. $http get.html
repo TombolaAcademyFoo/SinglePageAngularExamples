@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="MyModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <title>Get</title>
+</head>
+<body ng-controller="MyController">
+    <h1>Get Example</h1>
+    <div>{{model.redditData}}</div>
+
+    <script>
+        angular.module('MyModule',[]);
+
+        angular.module('MyModule')
+                .factory('MyModel', ['$http', function($http){
+                    var model = function()
+                    {
+                        this.getPosts = function (){
+                            var me = this;
+                            $http.get("http://www.reddit.com/r/drwho.json")
+                                    .success(function(data){
+                                        me.redditData = data.data.children;
+                                    })
+                                    .error(function(data, status) {
+                                        console.log('fail data'   + data);
+                                        console.log('fail status' + status);
+                                    });
+                        }
+                        this.getPosts();
+                    };
+                    return model;
+        }]);
+
+        angular.module('MyModule')
+                .controller('MyController',['$scope','MyModel',  function($scope, myModel){
+            $scope.model= new myModel();
+        }]);
+    </script>
+</body>
+</html>

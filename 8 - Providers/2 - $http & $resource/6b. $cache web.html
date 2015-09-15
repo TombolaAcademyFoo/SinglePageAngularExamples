@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="MyModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <title>Get</title>
+</head>
+<body ng-controller="MyController">
+    <h1>Get Example</h1>
+    <div>{{users}}</div>
+
+    <script>
+        angular.module('MyModule',[]);
+
+
+        angular.module('MyModule')
+                .service('UserCacheFactory', ['$http','$q', function($http, $q){
+                    //Promise is necessary as the cache won't be filled until the http request is done...
+                    var deferred = $q.defer();
+                    //Users changes little and is something we want to access freqently
+                    $http.get('http://jsonplaceholder.typicode.com/users', {cache : true})
+                            .then(function (){
+                                deferred.resolve();
+                            }); //cache true accepts the defaults
+                    return deferred.promise;
+                }]);
+
+        angular.module('MyModule')
+                .controller('MyController',['$scope','$cacheFactory', 'UserCacheFactory', function($scope, $cacheFactory, userCacheFactory){
+                    userCacheFactory.then(function(){
+                                var httpCache = $cacheFactory.get('$http'); //Cache name defaults to $http
+                                $scope.users = httpCache.get('http://jsonplaceholder.typicode.com/users'); //Cache key defaults to url of resource
+                })
+        }]);
+
+
+    </script>
+</body>
+</html>

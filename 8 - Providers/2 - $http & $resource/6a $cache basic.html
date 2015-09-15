@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="MyModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <title>Get</title>
+</head>
+<body ng-controller="MyController">
+    <h1>Basic Cache</h1>
+    <div>{{cacheInfo}}</div>
+    <div>{{cachedValues}}</div>
+
+    <script>
+        //This example makes no sense in the real world - just demoing
+        // Stuff going in and out.
+        angular.module('MyModule',[]);
+
+
+        angular.module('MyModule')
+                .controller('MyController', ['$scope','$cacheFactory', function($scope, $cacheFactory){
+
+                    //Get the cache
+                    var mainCache =  $cacheFactory.get('mainCache');
+                    $scope.cacheInfo = mainCache.info();
+                    $scope.cachedValues = mainCache.get('key') + ' ' + mainCache.get('key2');
+
+                    //For completeness, removing items:
+                    mainCache.remove('key');
+                    mainCache.removeAll();
+        }]);
+
+        //run is executed before controllers etc :- think of it as a main method
+        angular.module('MyModule')
+                .run(['$cacheFactory', function($cacheFactory){
+                    //Set up the cache
+                    //The values need to come from an expensive calle
+                    var mainCache =  $cacheFactory('mainCache');
+                    mainCache.put('key', 'value');
+                    mainCache.put('key2', 'value2');
+                }]);
+    </script>
+</body>
+</html>

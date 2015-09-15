@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="MyModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <title>Interceptor Example</title>
+</head>
+<body ng-controller="MyController">
+    <h1>Interceptor Example</h1>
+    <div>Response: {{response}}</div>
+
+    <script>
+        angular.module('MyModule',[]);
+
+        angular.module('MyModule',[]).config(['$httpProvider', function($httpProvider) {
+            //The interceptors list is just an array....
+            $httpProvider.interceptors.push('TimeStampInterceptor');
+            $httpProvider.interceptors.push('LoggingInterceptor');
+        }]);
+
+        angular.module('MyModule')
+                .factory('TimeStampInterceptor', [function(){
+                    return {
+                        request: function(config) {
+                            config.requestTimestamp = new Date().getTime();
+                            return config;
+                        },
+                        response: function(response) {
+                            response.config.responseTimestamp = new Date().getTime();
+                            return response;
+                        }
+                    };
+                }]);
+
+        angular.module('MyModule')
+                .factory('LoggingInterceptor', ['$log', function($log){
+                    return {
+                        request: function(config) {
+                            $log.log('request config:');
+                            $log.log(config);
+                            return config;
+                        },
+
+                        response: function(response) {
+                            $log.log('response:');
+                            $log.log(response);
+                            return response;
+                        },
+
+                        requestError: function(rejection){
+                            $log.log('requestError:');
+                            $log.log(rejection);
+                            return rejection;
+                        },
+
+                        responseError: function(rejection){
+                            $log.log('responseError:');
+                            $log.log(rejection);
+                            return rejection;
+                        },
+
+                    };
+                }]);
+
+        angular.module('MyModule')
+                .controller('MyController',['$scope','$http',  function($scope, $http){
+                    $http.get('http://www.warnerbros.com/archive/spacejam/movie/jam.htm')
+                            .then(function(data){
+                                $scope.response = data;
+                            })
+                }]);
+    </script>
+</body>
+</html>
+
