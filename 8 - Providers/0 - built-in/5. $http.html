@@ -17,18 +17,6 @@
         angular.module('Tombola.MyModule', []);
 
         angular.module('Tombola.MyModule')
-                .service('FakeAsyncPromise', ['$q', function($q){
-                    this.start = function(reference){
-                        var deferred = $q.defer(),
-                            timeout = Math.random() * 1000;
-                            setTimeout(function(){
-                                deferred.resolve('Process ' + reference + ' Random timeout = ' +  timeout);
-                            }, timeout);
-                            return deferred.promise;
-                        };
-                    }]);
-
-        angular.module('Tombola.MyModule')
                 .controller('MyController', [ '$scope', '$http',  function ($scope, $http) {
                     $scope.status;
                     $scope.headers;
@@ -36,17 +24,17 @@
                     $scope.data;
 
                     $http.get('http://www.reddit.com/r/britishproblems.json')
-                            .success(function(data, status, headers, config){
-                                $scope.status = status;
-                                $scope.headers = headers;
-                                $scope.config = config;
-                                $scope.data = data;
+                            .then(function(response){
+                                $scope.status = response.status;
+                                $scope.headers = response.headers;
+                                $scope.config = response.config;
+                                $scope.data = response.data;
                             })
-                            .error(function(data, status, headers, config) {
-                                $scope.status = 'Errored: ' + status;
-                                $scope.headers = headers;
-                                $scope.config = config;
-                                $scope.data = data;
+                            .catch(function(response) {
+                                $scope.status = 'Errored: ' + response.status;
+                                $scope.headers = response.headers;
+                                $scope.config = response.config;
+                                $scope.data = response.data;
                             });
                 }]);
     </script>
