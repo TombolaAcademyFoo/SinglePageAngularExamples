@@ -1,0 +1,23 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <!-- Note
+        See this for the cause of the cocked-up output
+        http://stackoverflow.com/questions/16018142/angular-currency-filter-symbol-%C3%82-added
+        Not fixing
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1>{{totalCost}}</h1>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+            .controller('MyController', [ '$scope', 'currencyFilter', function ($scope, currencyFilter) {
+                $scope.totalCost = currencyFilter(42.69, '£', 0);
+            }]);
+    </script>
+</body>
+</html>

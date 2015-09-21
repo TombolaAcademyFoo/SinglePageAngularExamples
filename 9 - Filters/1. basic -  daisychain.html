@@ -1,0 +1,18 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1>{{totalCost | currency : 'aud' | uppercase}}</h1>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+            .controller('MyController', [ '$scope', function ($scope) {
+                $scope.totalCost = 42.69;
+            }]);
+    </script>
+</body>
+</html>

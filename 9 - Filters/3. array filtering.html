@@ -1,0 +1,295 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <!-- NOTE, Newer version of angular needed for the begin functionality to work in limit to -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <div>
+            <h1>Second 5 items</h1>
+            {{list | limitTo:5:5}}
+            <h2>Can use in ng-repeat</h2>
+            <ul>
+               <li ng-repeat="person in list | limitTo:5:5 ">ID:  {{person.id}}, name: {{person.name.first}} {{person.name.last}} eyes:{{person.eyeColor}}</li>
+            </ul>
+        </div>
+        <div>
+            <h1>Filtering: Blue Eyed People</h1>
+            <h2>Can use in ng-repeat</h2>
+            <ul>
+                <!-- The JSON object acts as a pattern to match against, see https://docs.angularjs.org/api/ng/filter/filter-->
+                <li ng-repeat="person in list | filter:{eyeColor:'blue'} ">ID:  {{person.id}}, name: {{person.name.first}} {{person.name.last}} eyes:{{person.eyeColor}}</li>
+            </ul>
+        </div>
+
+        <div>
+            <h1>Filtering: Order By (Forename, Surname)</h1>
+            <h2>Can use in ng-repeat</h2>
+            <ul>
+                <li ng-repeat="person in list | orderBy:['name.last', 'name.first']">ID:  {{person.id}}, name: {{person.name.first}} {{person.name.last}} eyes:{{person.eyeColor}}</li>
+            </ul>
+        </div>
+
+        <div>
+            <h1>Compound: First 5 Blue eyed people by Name</h1>
+            <h2>Can use in ng-repeat</h2>
+            <ul>
+                <!-- Note - you have to think of the order -->
+                <li ng-repeat="person in list | filter:{eyeColor:'blue'} | orderBy:['name.last', 'name.first'] | limitTo:5">ID:  {{person.id}}, name: {{person.name.first}} {{person.name.last}} eyes:{{person.eyeColor}}</li>
+            </ul>
+        </div>
+
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+            .controller('MyController', [ '$scope', 'currencyFilter', function ($scope) {
+                //Details of the list not important
+                //Useful object generator http://beta.json-generator.com/
+                $scope.list =[
+                    {
+                        "name": {
+                            "last": "Cleese",
+                            "first": "John"
+                        },
+                        "eyeColor": "blue",
+                        "id": 0
+                    },
+                    {
+                        "name": {
+                            "last": "Donaldson",
+                            "first": "Lucy"
+                        },
+                        "eyeColor": "blue",
+                        "id": 1
+                    },
+                    {
+                        "name": {
+                            "last": "Acosta",
+                            "first": "Jill"
+                        },
+                        "eyeColor": "green",
+                        "id": 2
+                    },
+                    {
+                        "name": {
+                            "last": "Fitzgerald",
+                            "first": "Donovan"
+                        },
+                        "eyeColor": "blue",
+                        "id": 3
+                    },
+                    {
+                        "name": {
+                            "last": "Hicks",
+                            "first": "Dante"
+                        },
+                        "eyeColor": "brown",
+                        "id": 4
+                    },
+                    {
+                        "name": {
+                            "last": "Maxwell",
+                            "first": "David"
+                        },
+                        "eyeColor": "brown",
+                        "id": 5
+                    },
+                    {
+                        "name": {
+                            "last": "Graves",
+                            "first": "Randall"
+                        },
+                        "eyeColor": "brown",
+                        "id": 6
+                    },
+                    {
+                        "name": {
+                            "last": "Rowe",
+                            "first": "Crispin"
+                        },
+                        "eyeColor": "green",
+                        "id": 7
+                    },
+                    {
+                        "name": {
+                            "last": "Meyer",
+                            "first": "Russ"
+                        },
+                        "eyeColor": "brown",
+                        "id": 8
+                    },
+                    {
+                        "name": {
+                            "last": "George",
+                            "first": "Karyn"
+                        },
+                        "eyeColor": "blue",
+                        "id": 9
+                    },
+                    {
+                        "name": {
+                            "last": "Mcleod",
+                            "first": "Mcmahon"
+                        },
+                        "eyeColor": "blue",
+                        "id": 10
+                    },
+                    {
+                        "name": {
+                            "last": "Cherry",
+                            "first": "Norma"
+                        },
+                        "eyeColor": "blue",
+                        "id": 11
+                    },
+                    {
+                        "name": {
+                            "last": "Preston",
+                            "first": "Kathie"
+                        },
+                        "eyeColor": "green",
+                        "id": 12
+                    },
+                    {
+                        "name": {
+                            "last": "Patton",
+                            "first": "George"
+                        },
+                        "eyeColor": "green",
+                        "id": 13
+                    },
+                    {
+                        "name": {
+                            "last": "Acosta",
+                            "first": "Alex"
+                        },
+                        "eyeColor": "green",
+                        "id": 14
+                    },
+                    {
+                        "name": {
+                            "last": "Moon",
+                            "first": "Hilary"
+                        },
+                        "eyeColor": "green",
+                        "id": 15
+                    },
+                    {
+                        "name": {
+                            "last": "McLeod",
+                            "first": "Kane"
+                        },
+                        "eyeColor": "blue",
+                        "id": 16
+                    },
+                    {
+                        "name": {
+                            "last": "Suarez",
+                            "first": "Sherry"
+                        },
+                        "eyeColor": "brown",
+                        "id": 17
+                    },
+                    {
+                        "name": {
+                            "last": "Tyler-Moore",
+                            "first": "Mary"
+                        },
+                        "eyeColor": "brown",
+                        "id": 18
+                    },
+                    {
+                        "name": {
+                            "last": "Oconnor",
+                            "first": "Jordan"
+                        },
+                        "eyeColor": "brown",
+                        "id": 19
+                    },
+                    {
+                        "name": {
+                            "last": "Stephenson",
+                            "first": "George"
+                        },
+                        "eyeColor": "brown",
+                        "id": 20
+                    },
+                    {
+                        "name": {
+                            "last": "Brooks",
+                            "first": "Ida"
+                        },
+                        "eyeColor": "blue",
+                        "id": 21
+                    },
+                    {
+                        "name": {
+                            "last": "Whitley",
+                            "first": "Michelle"
+                        },
+                        "eyeColor": "green",
+                        "id": 22
+                    },
+                    {
+                        "name": {
+                            "last": "Hinton",
+                            "first": "Savage"
+                        },
+                        "eyeColor": "brown",
+                        "id": 23
+                    },
+                    {
+                        "name": {
+                            "last": "Santana",
+                            "first": "Colette"
+                        },
+                        "eyeColor": "blue",
+                        "id": 24
+                    },
+                    {
+                        "name": {
+                            "last": "Neal",
+                            "first": "Lilian"
+                        },
+                        "eyeColor": "green",
+                        "id": 25
+                    },
+                    {
+                        "name": {
+                            "last": "Richards",
+                            "first": "Jillian"
+                        },
+                        "eyeColor": "green",
+                        "id": 26
+                    },
+                    {
+                        "name": {
+                            "last": "Richards",
+                            "first": "Elise"
+                        },
+                        "eyeColor": "green",
+                        "id": 27
+                    },
+                    {
+                        "name": {
+                            "last": "Figueroa",
+                            "first": "Abigail"
+                        },
+                        "eyeColor": "brown",
+                        "id": 28
+                    },
+                    {
+                        "name": {
+                            "last": "Simpson",
+                            "first": "Phillip"
+                        },
+                        "eyeColor": "green",
+                        "id": 29
+                    }
+                ];
+            }]);
+    </script>
+</body>
+</html>
