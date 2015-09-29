@@ -3,16 +3,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
 </head>
 <body ng-controller="MyController" ng-cloak>
-    <h1>{{title}}</h1>
-    <ul>
-       <li ng-repeat="jam in jars">{{jam}}</li>
-    </ul>
+    <div>
+        <button ng-click="toggle()">Toggle</button>
+
+    </div>
+    <input type="checkbox" ng-checked="checked"></input>
+    is checked {{checked}}
     <script>
         angular.module('Tombola.MyModule', []);
         angular.module('Tombola.MyModule')
                 .controller('MyController', function ($rootScope, $scope) {
-                    $scope.jars = ['strawberry', 'raspberry', 'gooseberry', 'rhubarb'];
-                    $rootScope.title = 'Scope Hierarchy'
+                    $scope.checked = true;
+                    $scope.toggle = function(){
+                        $scope.checked = !$scope.checked;
+                    }
+
                 });
     </script>
 </body>

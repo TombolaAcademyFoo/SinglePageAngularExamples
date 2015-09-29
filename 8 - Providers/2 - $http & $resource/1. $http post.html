@@ -19,7 +19,7 @@
                         this.foo = function (){
                             //https://github.com/typicode/jsonplaceholder#how-to
                             var me = this;
-                            $http.post("http://jsonplaceholder.typicode.com/posts",
+                            $http.post('http://jsonplaceholder.typicode.com/posts',
                                     {
                                         title: 'myTitle',
                                         body: 'Body text here',
@@ -33,7 +33,7 @@
                                         console.log('fail status' + status);
                                     });
                         }
-                        this.fooo();
+                        this.foo();
                     };
                     return model;
         }]);

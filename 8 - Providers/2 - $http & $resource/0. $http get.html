@@ -18,13 +18,13 @@
                     {
                         this.getPosts = function (){
                             var me = this;
-                            $http.get("http://www.reddit.com/r/drwho.json")
-                                    .success(function(data){
-                                        me.redditData = data.data.children;
+                            $http.get('http://www.reddit.com/r/drwho.json')
+                                    .then(function(response){
+                                        me.redditData = response.data.data.children;
                                     })
-                                    .error(function(data, status) {
-                                        console.log('fail data'   + data);
-                                        console.log('fail status' + status);
+                                    .catch(function(response) {
+                                        console.log('fail data'   + response.data);
+                                        console.log('fail status' + response.status);
                                     });
                         }
                         this.getPosts();

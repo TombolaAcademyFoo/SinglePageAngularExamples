@@ -1,0 +1,31 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-controller="MyController" ng-cloak>
+    <div>
+        <button ng-click="toggleImage()">Toggle</button>
+    </div>
+    <!-- Possible do this  but it causes errors in the console (image not found as not bound at start...)-->
+    <img src="../../ZZZ.%20Resources/{{imageName}}.gif" >
+    <!-- ** Should do this ** -->
+    <img ng-src="../../ZZZ.%20Resources/{{imageName}}.gif">
+
+    <script>
+        angular.module('Tombola.MyModule', []);
+        angular.module('Tombola.MyModule')
+                .controller('MyController', function ($rootScope, $scope) {
+                    $scope.imageName = 'trap';
+                    $scope.toggleImage = function(){
+                        if($scope.imageName ==='trap'){
+                            $scope.imageName = 'frogspin';
+                        }
+                        else {
+                            $scope.imageName ='trap';
+                        }
+                    }
+
+                });
+    </script>
+</body>
+</html>

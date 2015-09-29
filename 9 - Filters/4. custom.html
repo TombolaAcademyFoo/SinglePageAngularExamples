@@ -1,0 +1,34 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <!-- NOTE, Newer version of angular needed for the begin functionality to work in limit to -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <div>
+            <h1>Hex To Int</h1>
+            <div>{{number}} = 0x{{number | toHex}}</div>
+            <div>{{number}} = 0x{{number | toHex:true}}</div>
+
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .filter('toHex', function (){
+                    return function(number, uppercase){
+                        //Only works with numbers....
+                        var hexNumber = number.toString(16);
+                        if(!uppercase)
+                            return hexNumber;
+                        return hexNumber.toUpperCase();
+                    };
+                });
+
+        angular.module('Tombola.MyModule')
+            .controller('MyController', [ '$scope', 'currencyFilter', function ($scope) {
+                $scope.number = 3735928559;
+            }]);
+    </script>
+</body>
+</html>

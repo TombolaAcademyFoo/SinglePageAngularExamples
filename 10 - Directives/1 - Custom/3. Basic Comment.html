@@ -1,0 +1,21 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-init="checked=true">
+    <div>
+        <!-- directive:my-directive -->
+    </div>
+    <script>
+        //Despite the fact this is copied from an online resource,
+        //It doesn't seem to work. Tested under Chrome on a Mac YMMV
+        angular.module('Tombola.MyModule', []);
+        angular.directive("myDirective", function() {
+            return {
+                restrict: 'M',
+                template: '<h1>This is the template</h1>'
+            }
+        })
+    </script>
+</body>
+</html>
