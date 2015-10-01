@@ -4,22 +4,15 @@
 </head>
 <body ng-controller="MyController" ng-cloak>
     <div>
-        <button ng-click="toggle()">Toggle</button>
-
+        <div>You will need to leave the text box to cause the update....</div>
+        <div><input type="text" ng-model="value" ng-model-options="{ updateOn : 'blur'}"></input></div>
+        <div>{{value}}</div>
     </div>
-    <select>
-        <option>Never Selected</option>
-        <option ng-selected="checked">Depends on Toggle</option>
-    </select>
-    is selected {{checked}}
     <script>
         angular.module('Tombola.MyModule', []);
         angular.module('Tombola.MyModule')
                 .controller('MyController', function ($rootScope, $scope) {
-                    $scope.checked = true;
-                    $scope.toggle = function(){
-                        $scope.checked = !$scope.checked;
-                    };
+                    $scope.value = 'start typing';
                 });
     </script>
 </body>

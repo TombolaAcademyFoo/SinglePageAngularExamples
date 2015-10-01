@@ -4,22 +4,15 @@
 </head>
 <body ng-controller="MyController" ng-cloak>
     <div>
-        <button ng-click="toggle()">Toggle</button>
-
+        Will take 1 second (1000ms) to update:
     </div>
-    <select>
-        <option>Never Selected</option>
-        <option ng-selected="checked">Depends on Toggle</option>
-    </select>
-    is selected {{checked}}
+    <input type="checkbox" ng-model="checked"  ng-model-options="{ debounce: 1000 }" ></input>
+    is checked {{checked}}
     <script>
         angular.module('Tombola.MyModule', []);
         angular.module('Tombola.MyModule')
                 .controller('MyController', function ($rootScope, $scope) {
                     $scope.checked = true;
-                    $scope.toggle = function(){
-                        $scope.checked = !$scope.checked;
-                    };
                 });
     </script>
 </body>

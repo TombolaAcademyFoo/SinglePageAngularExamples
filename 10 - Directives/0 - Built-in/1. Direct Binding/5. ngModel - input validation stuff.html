@@ -1,0 +1,42 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <style>
+        .ng-valid {
+            outline: #56EE56 solid 2px;
+        }
+        .ng-pristine{
+            background-color: #99FF99;
+        }
+        .ng-dirty{
+            background-color: #FFFF99;
+        }
+        .ng-invalid {
+            outline: #EE5656 solid 2px;
+        }
+    </style>
+</head>
+<body>
+    <div ng-app="Tombola.MyModule" ng-controller="MyController">
+        <form name="myForm">
+            <input type="text" name="txtValue" ng-model="value" ng-maxlength="10" ng-pattern="/^[0-9]*$/" required> <!-- ng-required does not work-->
+
+            <!-- Note: uses form name and text boc names... $ error is a object ng adds. The  h-->
+            <span ng-show="myForm.txtValue.$error.required">Required!</span>
+            <span ng-show="myForm.txtValue.$error.maxlength">Too Long!</span>
+            <span ng-show="myForm.txtValue.$error.pattern">Decimal Digits Only!</span>
+        </form>
+        <hr>
+        <div>Form is valid = {{myForm.$valid}}</div>
+        <div>Text box = {{myForm.txtValue.$valid}}</div>
+        <div>Text box error object= {{myForm.txtValue.$error}}</div>
+    </div>
+
+    <script>
+        angular.module('Tombola.MyModule', [])
+                .controller('MyController', ['$scope', function($scope) {
+                    $scope.value = '31415';
+                }]);
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <style>
+        .ng-valid {
+            outline: #56EE56 solid 2px;
+        }
+        .ng-pristine{
+            background-color: #99FF99;
+        }
+        .ng-dirty{
+            background-color: #FFFF99;
+        }
+        .ng-invalid {
+            outline: #EE5656 solid 2px;
+        }
+    </style>
+</head>
+<body ng-controller="MyController" ng-cloak>
+    <div>
+        <div>The text area validates (the text box doesn't) - must be a set of digits no longer than 10 to validate.</div>
+        <div><textarea ng-model="value" ng-required="true" ng-maxlength="10" ng-pattern="/^[0-9]*$/" ng-trim="true"></textarea></div>
+        <div><input type="text" ng-model="value"></input></div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+        angular.module('Tombola.MyModule')
+                .controller('MyController', function ($rootScope, $scope) {
+                    $scope.value = '12345';
+                });
+    </script>
+</body>
+</html>

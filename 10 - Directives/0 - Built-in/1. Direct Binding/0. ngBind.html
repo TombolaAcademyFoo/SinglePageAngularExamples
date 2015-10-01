@@ -3,23 +3,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
 </head>
 <body ng-controller="MyController" ng-cloak>
-    <div>
-        <button ng-click="toggle()">Toggle</button>
-
-    </div>
-    <select>
-        <option>Never Selected</option>
-        <option ng-selected="checked">Depends on Toggle</option>
-    </select>
-    is selected {{checked}}
+    <div ng-bind="value"></div>
+    <div>Note: compare with bind-html, the above is encoded as text</div>
     <script>
         angular.module('Tombola.MyModule', []);
         angular.module('Tombola.MyModule')
                 .controller('MyController', function ($rootScope, $scope) {
-                    $scope.checked = true;
-                    $scope.toggle = function(){
-                        $scope.checked = !$scope.checked;
-                    };
+                    $scope.value = '<h1>This is deliberately HTML</h1>';
                 });
     </script>
 </body>
