@@ -1,0 +1,27 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body >
+    <div ng-controller="MyController">
+        <my-directive></my-directive>
+        {{myValue}}
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', ['$scope', function($scope){
+                    $scope.myValue = 'Pip Boy';
+                }]);
+
+        angular.module('Tombola.MyModule')
+                .directive('myDirective', function(){
+                    return {
+                        restrict: 'E',
+                        template: '<h1>{{myValue}}</h1>'
+                    };
+                });
+    </script>
+</body>
+</html>

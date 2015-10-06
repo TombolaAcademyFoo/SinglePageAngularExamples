@@ -1,0 +1,59 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body >
+    <div ng-controller="MyController">
+        <div ng-repeat="item in natoAlphabet">
+            <tombola-alphabet-item ></tombola-alphabet-item>
+            <tombola-alphabet-item emphasise="true"></tombola-alphabet-item>
+        </div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', ['$scope', function($scope){
+                    $scope.natoAlphabet = [
+                        {letter:'A', word:'Alpha'},
+                        {letter:'B', word:'Bravo'},
+                        {letter:'C', word:'Charlie'},
+                        {letter:'D', word:'Delta'},
+                        {letter:'E', word:'Echo'},
+                        {letter:'F', word:'Foxtrot'},
+                        {letter:'G', word:'Golf'},
+                        {letter:'H', word:'Hotel'},
+                        {letter:'I', word:'India'},
+                        {letter:'J', word:'Juliet'},
+                        {letter:'K', word:'Kilo'},
+                        {letter:'L', word:'Lima'},
+                        {letter:'M', word:'Mike'},
+                        {letter:'N', word:'November'},
+                        {letter:'O', word:'Oscar'},
+                        {letter:'P', word:'Papa'},
+                        {letter:'Q', word:'Quebec'},
+                        {letter:'R', word:'Romeo'},
+                        {letter:'S', word:'Sierra'},
+                        {letter:'T', word:'Tango'},
+                        {letter:'U', word:'Uniform'},
+                        {letter:'V', word:'Victor'},
+                        {letter:'W', word:'Whiskey'},
+                        {letter:'X', word:'X-ray'},
+                        {letter:'Y', word:'Yankee'},
+                        {letter:'Z', word:'Zulu'}
+                    ];
+                }]);
+        //Not the best way to skin this cat....
+        angular.module('Tombola.MyModule')
+                .directive('tombolaAlphabetItem', function(){
+                    return {
+                        restrict: 'E',
+                        templateUrl: function(tElem, tAttr) {
+                            console.log(tAttr);
+                            return tAttr.emphasise ? './partials/tombola-alphabet-item.html' : './partials/tombola-alphabet-item-emphasised.html';
+                        }
+                    };
+                });
+    </script>
+</body>
+</html>
