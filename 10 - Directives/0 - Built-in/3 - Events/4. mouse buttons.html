@@ -1,0 +1,31 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <h1>Click the div and watch the console</h1>
+        <div type="text" ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)" >Click this div</div>
+        <div>Last button pressed:{{buttonPressed}}</div>
+    </div>
+    <div>Protip: try watching what happens as you press and release the button</div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', [ '$scope',   function ($scope) {
+                    $scope.buttonPressed = '';
+                    $scope.mouseDown = function($event){
+                        console.log('mouse down, event:');
+                        console.log($event);
+                        $scope.buttonPressed = $event.which;
+                    };
+
+                    $scope.mouseUp = function($event){
+                        console.log('mouse up, event:');
+                        console.log($event);
+                    };
+                }]);
+    </script>
+</body>
+</html>

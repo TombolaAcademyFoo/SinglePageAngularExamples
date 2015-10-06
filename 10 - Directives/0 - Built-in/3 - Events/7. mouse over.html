@@ -1,0 +1,38 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <style>
+        .target {
+            border: #B00BE5 solid 10px;
+            background-color: #FFFF99;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            height:100px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <span class="target" ng-class="class" ng-mouseover="mouseMove($event)" >Move the mouse over this</span>
+        <div>X:{{xValue}}</div>
+        <div>Y:{{yValue}}</div>
+    </div>
+
+    <div>Protip: Examine the console</div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', [ '$scope',   function ($scope) {
+                    $scope.mouseMove = function($event){
+                        $scope.xValue = $event.offsetX;
+                        $scope.yValue  = $event.offsetY;
+                        console.log($event);
+                    };
+
+                }]);
+    </script>
+</body>
+</html>

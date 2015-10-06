@@ -1,0 +1,44 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <style>
+        .target {
+            border: #B00BE5 solid 1px;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+        .entered {
+            background-color: #99FF99;
+        }
+        .left {
+            background-color: #FF9999;
+        }
+    </style>
+</head>
+<body ng-cloak>
+    <div ng-controller="MyController">
+        <span class="target" ng-class="class" ng-mouseenter="mouseEnter($event)" ng-mouseleave="mouseLeave($event)" >Move the mouse over this</span>
+    </div>
+    <div>Protip: Examine the console</div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', [ '$scope',   function ($scope) {
+                    $scope.class = '';
+                    $scope.mouseEnter = function($event){
+                        console.log('mouse down, event:');
+                        console.log($event);
+                        $scope.class = 'entered';
+                    };
+
+                    $scope.mouseLeave = function($event){
+                        $scope.class = 'left';
+                        console.log('mouse up, event:');
+                        console.log($event);
+                    };
+                }]);
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        table.bordered, table.bordered th, table.bordered td {
+
+            border: 1px solid #DEADED;
+
+        }
+
+        .booleanColumn {
+            width: 80px;
+        }
+
+        .odd {
+            background-color: #ADADED;
+        }
+
+        .even {
+            background-color: #EDEDED;
+        }
+
+        .red {
+            color: #AA0000;
+        }
+        .green {
+            color: #00AA00;
+        }
+
+    </style>
+</head>
+
+<body ng-controller="MyController">
+        <h1>Tag Syntax</h1>
+        <div>
+            <!-- Note inner '' are needed as src takes an expression-->
+            <ng-include src="'./partials/table.html'"></ng-include>
+        </div>
+        <h1>Attribute Syntax</h1>
+        <div ng-include="'./partials/table.html'"></div>
+        <script>
+        angular.module('Tombola.MyModule', []);
+        angular.module('Tombola.MyModule')
+                .controller('MyController', function ($rootScope, $scope) {
+                    $scope.border = 'bordered';
+                    $scope.natoAlphabet = [
+                        {letter:'A', word:'Alpha'},
+                        {letter:'B', word:'Bravo'},
+                        {letter:'C', word:'Charlie'},
+                        {letter:'D', word:'Delta'},
+                        {letter:'E', word:'Echo'},
+                        {letter:'F', word:'Foxtrot'},
+                        {letter:'G', word:'Golf'},
+                        {letter:'H', word:'Hotel'},
+                        {letter:'I', word:'India'},
+                        {letter:'J', word:'Juliet'},
+                        {letter:'K', word:'Kilo'},
+                        {letter:'L', word:'Lima'},
+                        {letter:'M', word:'Mike'},
+                        {letter:'N', word:'November'},
+                        {letter:'O', word:'Oscar'},
+                        {letter:'P', word:'Papa'},
+                        {letter:'Q', word:'Quebec'},
+                        {letter:'R', word:'Romeo'},
+                        {letter:'S', word:'Sierra'},
+                        {letter:'T', word:'Tango'},
+                        {letter:'U', word:'Uniform'},
+                        {letter:'V', word:'Victor'},
+                        {letter:'W', word:'Whiskey'},
+                        {letter:'X', word:'X-ray'},
+                        {letter:'Y', word:'Yankee'},
+                        {letter:'Z', word:'Zulu'}
+                    ];
+
+                    $scope.loadTable = function(){
+                        $scope.border = $scope.border === '' ? 'bordered' : '';
+                    }
+
+                });
+    </script>
+</body>
+</html>

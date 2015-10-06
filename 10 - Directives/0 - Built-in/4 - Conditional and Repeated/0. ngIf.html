@@ -1,0 +1,24 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+
+<body ng-controller="MyController">
+    <div ng-cloak>
+        <label for="toggle">Toggle:</label>
+        <input id='toggle' type="checkbox" ng-model="checked" ></input>
+        <div style="color:green" ng-if="checked">
+            <h1>ngIf</h1>
+            <div>This whole element is added or removed to the DOM depending on the IF condition. c.f. ngShow and ng Hide</div>
+        </div>
+    </div>
+
+        <script>
+        angular.module('Tombola.MyModule', []);
+        angular.module('Tombola.MyModule')
+                .controller('MyController', function ($rootScope, $scope) {
+                    $scope.checked = true;
+                });
+    </script>
+</body>
+</html>

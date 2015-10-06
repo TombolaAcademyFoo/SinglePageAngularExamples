@@ -1,0 +1,38 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <style>
+        table, th, td {
+            border-collapse: collapse;
+            border: 1px solid #DEADED;
+            text-align: center;
+        }
+        .booleanColumn {
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body ng-controller="MyController">
+    <div ng-cloak>
+        <select ng-model="selection" ng-options="item for item in items">
+        </select>
+        <code>selection={{selection}}</code>
+        <hr/>
+        <div  ng-switch on="selection">
+            <div class="animate-switch" ng-switch-when="settings"><h1>Settings Div</h1><div>You Selected Settings</div></div>
+            <h2 class="animate-switch" ng-switch-when="home">Home Span</h2>
+            <h3 class="animate-switch" ng-switch-default>default</h3>
+        </div>
+    </div>
+
+        <script>
+        angular.module('Tombola.MyModule', []);
+        angular.module('Tombola.MyModule')
+                .controller('MyController', function ($rootScope, $scope) {
+                    $scope.items = ['settings', 'home', 'other'];
+                    $scope.selection = $scope.items[0];
+                });
+    </script>
+</body>
+</html>

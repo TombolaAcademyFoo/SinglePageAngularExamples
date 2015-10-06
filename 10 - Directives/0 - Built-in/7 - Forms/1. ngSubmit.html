@@ -1,0 +1,23 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+
+<body ng-controller="MyController">
+    <div ng-cloak>
+        <form ng-submit="doIt()">
+            <input type="submit" value="Do It">
+        </form>
+    </div>
+
+        <script>
+        angular.module('Tombola.MyModule', []);
+        angular.module('Tombola.MyModule')
+                .controller('MyController', function ($rootScope, $scope) {
+                    $scope.doIt = function (){
+                        console.log('Did it');
+                    };
+                });
+    </script>
+</body>
+</html>

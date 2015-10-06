@@ -1,0 +1,77 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <style>
+        table, th, td {
+            border-collapse: collapse;
+            border: 1px solid #DEADED;
+            text-align: center;
+        }
+        .booleanColumn {
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body ng-controller="MyController">
+    <div ng-cloak>
+        <table>
+            <tr>
+                <th>Index</th>
+                <th>Letter</th>
+                <th>Word</th>
+                <th class="booleanColumn">First</th>
+                <th class="booleanColumn">Middle</th>
+                <th class="booleanColumn">Last</th>
+                <th class="booleanColumn">Odd</th>
+                <th class="booleanColumn">Even</th>
+            </tr>
+            <tr ng-repeat="item in natoAlphabet">
+                <td>{{$index}}</td>
+                <th>{{item.letter}}</th>
+                <td>{{item.word}}</td>
+                <td>{{$first}}</td>
+                <td>{{$middle}}</td>
+                <td>{{$last}}</td>
+                <td>{{$odd}}</td>
+                <td>{{$even}}</td>
+            </tr>
+        </table>
+    </div>
+
+        <script>
+        angular.module('Tombola.MyModule', []);
+        angular.module('Tombola.MyModule')
+                .controller('MyController', function ($rootScope, $scope) {
+                    $scope.natoAlphabet = [
+                        {letter:'A', word:'Alpha'},
+                        {letter:'B', word:'Bravo'},
+                        {letter:'C', word:'Charlie'},
+                        {letter:'D', word:'Delta'},
+                        {letter:'E', word:'Echo'},
+                        {letter:'F', word:'Foxtrot'},
+                        {letter:'G', word:'Golf'},
+                        {letter:'H', word:'Hotel'},
+                        {letter:'I', word:'India'},
+                        {letter:'J', word:'Juliet'},
+                        {letter:'K', word:'Kilo'},
+                        {letter:'L', word:'Lima'},
+                        {letter:'M', word:'Mike'},
+                        {letter:'N', word:'November'},
+                        {letter:'O', word:'Oscar'},
+                        {letter:'P', word:'Papa'},
+                        {letter:'Q', word:'Quebec'},
+                        {letter:'R', word:'Romeo'},
+                        {letter:'S', word:'Sierra'},
+                        {letter:'T', word:'Tango'},
+                        {letter:'U', word:'Uniform'},
+                        {letter:'V', word:'Victor'},
+                        {letter:'W', word:'Whiskey'},
+                        {letter:'X', word:'X-ray'},
+                        {letter:'Y', word:'Yankee'},
+                        {letter:'Z', word:'Zulu'}
+                    ];
+                });
+    </script>
+</body>
+</html>

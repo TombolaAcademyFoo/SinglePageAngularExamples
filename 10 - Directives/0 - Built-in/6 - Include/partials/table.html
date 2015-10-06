@@ -1,0 +1,13 @@
+<table ng-class="border">
+    <tr >
+        <th>Index</th>
+        <th>Letter</th>
+        <th>Word</th>
+    </tr>
+    <!-- Note the string inside ngClassOdd (and Even) is an expression, hence the '' inside the "" -->
+    <tr ng-repeat="item in natoAlphabet" ng-class-odd="'odd'" ng-class-even="'even'">
+        <td ng-class="$middle ? 'green' : 'red'" >{{$index}}</td>
+        <th>{{item.letter}}</th>
+        <td>{{item.word}}</td>
+    </tr>
+</table>

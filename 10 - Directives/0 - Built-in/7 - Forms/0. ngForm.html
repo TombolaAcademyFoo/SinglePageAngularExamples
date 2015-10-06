@@ -1,0 +1,38 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <style>
+        .formContainer {
+            border: solid #123456 5px;
+        }
+    </style>
+</head>
+
+<body ng-controller="MyController">
+    <div class="formContainer" ng-cloak>
+        <form name="myForm">
+            <h2>Main Form</h2>
+            <input ng-model="foo" type="text" required>
+
+            <div class="formContainer">
+                <ng-form name="subForm">
+                    <h2>Sub Form</h2>
+                    <input ng-model="bar" type="text" required>
+                    <span ng-hide="subForm.$valid">Sub form not valid</span>
+                </ng-form>
+            </div>
+            <span ng-hide="myForm.$valid">Whole Not valid</span>
+        </form>
+    </div>
+
+        <script>
+        angular.module('Tombola.MyModule', []);
+        angular.module('Tombola.MyModule')
+                .controller('MyController', function ($rootScope, $scope) {
+                    $scope.foo = 'Wheez keys';
+                    $scope.bar = 'Are theez keys';
+
+                });
+    </script>
+</body>
+</html>

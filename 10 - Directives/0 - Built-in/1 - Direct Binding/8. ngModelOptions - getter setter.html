@@ -4,8 +4,7 @@
 </head>
 <body ng-controller="MyController" ng-cloak>
     <div>
-        <div>You will need to leave the textbox to update the value</div>
-        <div><input type="text" ng-model="value" ng-model-options="{ updateOn : 'blur'}"></input></div>
+        <div><input type="text" ng-model="foo" ng-model-options="{ getterSetter : true}"></input></div>
         <div>{{value}}</div>
     </div>
     <script>
@@ -13,8 +12,11 @@
         angular.module('Tombola.MyModule')
                 .controller('MyController', function ($rootScope, $scope) {
                     var foo = 'start typing';
-                    $scope.setFoo = function (){
-                        ///'start typing';
+                    $scope.foo = function (newValue){
+                        if(arguments.length >0) {
+                            foo = newValue;
+                        }
+                        return foo;
                     };
                 });
     </script>
