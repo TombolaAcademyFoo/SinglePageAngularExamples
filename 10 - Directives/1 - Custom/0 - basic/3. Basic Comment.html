@@ -4,18 +4,22 @@
 </head>
 <body ng-init="checked=true">
     <div>
-        <!-- directive:my-directive -->
+        <!-- directive: my-directive -->
     </div>
     <script>
-        //Despite the fact this is copied from an online resource,
-        //It doesn't seem to work. Tested under Chrome on a Mac YMMV
         angular.module('Tombola.MyModule', []);
-        angular.directive("myDirective", function() {
+        angular.module('Tombola.MyModule')
+                .directive("myDirective", function() {
             return {
                 restrict: 'M',
-                template: '<h1>This is the template</h1>'
-            }
-        })
+                //template has no power here, there is no DOM element to insert into as comment
+                //need to manipulate the DOM directly.
+                link: function postlink (scope, iElement) {
+                    iElement.after(angular.element('<h1>This is the template</h1>'))
+                },
+                template:'<h1>foooo</h1>'
+            };
+        });
     </script>
 </body>
 </html>

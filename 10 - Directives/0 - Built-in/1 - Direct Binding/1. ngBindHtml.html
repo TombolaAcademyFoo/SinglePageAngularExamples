@@ -6,7 +6,7 @@
 </head>
 <body ng-controller="MyController" ng-cloak>
     <div ng-bind-html="value"></div>
-    <div>Note: compare with bind-html, the above is encoded as text</div>
+    <div>Note: compare with bind, which is encoded as text</div>
     <script>
         angular.module('Tombola.MyModule', ['ngSanitize']); //NOTE Dependency
         angular.module('Tombola.MyModule')

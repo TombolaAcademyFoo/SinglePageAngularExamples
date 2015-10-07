@@ -1,0 +1,31 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body >
+    <div ng-controller="MyController">
+        {{myValue}}
+        <my-directive></my-directive>
+        <div>
+            <em>Check in angular inspector: new scope created for directive</em>
+        </div>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', ['$scope', function($scope){
+                    $scope.myValue = 'Pip Boy';
+                }]);
+
+        angular.module('Tombola.MyModule')
+                .directive('myDirective', function(){
+                    return {
+                        restrict: 'E',
+                        scope: true,
+                        template: '<h1>{{myValue}}</h1> <input type="text" ng-model="myValue"/>'
+                    };
+                });
+    </script>
+</body>
+</html>

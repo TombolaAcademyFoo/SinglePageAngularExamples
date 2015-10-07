@@ -1,0 +1,45 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body >
+    <div ng-controller="MyController">
+        <my-directive foo="myFoo" bar="{{qux}}" baz="myBaz" qux="qux" waldo="doSomething()"></my-directive>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', ['$scope', function($scope){
+                    $scope.qux = 'qux';
+                    $scope.doSomething = function(){
+                        //Remeber - this is still a closure...
+                        alert('Something done');
+                    };
+                }]);
+
+        angular.module('Tombola.MyModule')
+                .directive('myDirective', function(){
+                    return {
+                        restrict: 'E',
+                        scope: {
+                            foo:'@',
+                            bar:'@',
+                            corge:'@baz',
+                            qux:'=',
+                            garply:'=qux',
+                            waldo:'&'
+                        },
+                        template: '<h1>Results</h1>' +
+                        '<div>Foo = {{foo}}</div>' +
+                        '<div>Bar = {{bar}} (Attribute bound to parent Qux value)</div>' +
+                        '<div>Corge = {{corge}} (renamed Baz)</div>' +
+                        '<div>qux = {{qux}} </div>' +
+                        '<div>garply = {{garply}} (renamed qux)</div>'+
+                        '<div>Access quxx from parent: {{$parent.qux}}</div>' +
+                        '<div ng-click="waldo()">Click here to do something (waldo)</div>'
+                    };
+                });
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<html ng-app="Tombola.MyModule">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+</head>
+<body >
+    <div ng-controller="MyController">
+        <my-directive></my-directive>
+    </div>
+    <script>
+        angular.module('Tombola.MyModule', []);
+
+        angular.module('Tombola.MyModule')
+                .controller('MyController', ['$scope', function($scope){
+                    $scope.myValue = 'Pip Boy';
+                }]);
+
+        //************************************* NOTE *************************************
+        //There is a lot of functionality in this method, see
+        //https://docs.angularjs.org/api/ng/service/$compile
+        angular.module('Tombola.MyModule')
+                .directive('myDirective', function(){
+                    return {
+                        restrict: 'E',
+                        compile: function(tElem, tAttr,transclude){
+                            return {
+                                pre: function (scope, iElement, iAttrs, controller) {
+                                    console.log('pre called');
+                                    iElement.append(angular.element('<div>Pre added me</div>'))
+                                },
+                                post: function (scope, iElement, iAttrs, controller) {
+                                    console.log('post called');
+                                    iElement.append(angular.element('<div>Post added me</div>'))
+                            }}
+                        },
+                        template: '<h1>{{myValue}}</h1>'
+                    };
+                });
+    </script>
+</body>
+</html>
