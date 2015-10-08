@@ -49,8 +49,7 @@
                     return {
                         restrict: 'E',
                         templateUrl: function(tElem, tAttr) {
-                            console.log(tAttr);
-                            return tAttr.emphasise ? './partials/tombola-alphabet-item.html' : './partials/tombola-alphabet-item-emphasised.html';
+                            return tAttr.emphasise ? './partials/tombola-alphabet-item-emphasised.html':  './partials/tombola-alphabet-item.html';
                         }
                     };
                 });

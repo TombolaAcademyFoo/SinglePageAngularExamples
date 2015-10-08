@@ -4,17 +4,19 @@
 </head>
 <body ng-controller="MyController" ng-cloak>
     <div>
-        <div><input type="text" ng-model="foo" ng-model-options="{ getterSetter : true}"></input></div>
-        <div>{{value}}</div>
+        <div><input type="text" ng-model="bar" ng-model-options="{ getterSetter : true}"></div>
+
+        <div><input type="text" ng-model="bar" ng-model-options="{ getterSetter : true}"></div>
+        {{bar}}<!-- Cannot bind like this - this is labelled a "feature" by angular two way binding only-->
     </div>
     <script>
         angular.module('Tombola.MyModule', []);
         angular.module('Tombola.MyModule')
-                .controller('MyController', function ($rootScope, $scope) {
-                    var foo = 'start typing';
-                    $scope.foo = function (newValue){
-                        if(arguments.length >0) {
-                            foo = newValue;
+                .controller('MyController', function ($scope) {
+                    foo = 'start typing';
+                    $scope.bar = function (newValue){
+                        if(arguments.length > 0){
+                           foo = newValue;
                         }
                         return foo;
                     };

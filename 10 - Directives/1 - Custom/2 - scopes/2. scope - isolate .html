@@ -11,9 +11,9 @@
 
         angular.module('Tombola.MyModule')
                 .controller('MyController', ['$scope', function($scope){
-                    $scope.qux = 'qux';
+                    $scope.qux = 'myQux';
                     $scope.doSomething = function(){
-                        //Remeber - this is still a closure...
+                        //Remember - this is still a closure...
                         alert('Something done');
                     };
                 }]);

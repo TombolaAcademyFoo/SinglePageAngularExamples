@@ -23,8 +23,8 @@
                     return {
                         restrict: 'E',
                         link: function postlink (scope, iElement, iAttrs, controller) {
-                                    console.log('post link called');
-                                    iElement.append(angular.element('<div>Post link added me</div>'))
+                                console.log('post link called');
+                                iElement.append(angular.element('<div>Post link added me</div>'));
                         },
                         template: '<h1>{{myValue}}</h1>'
                     };
